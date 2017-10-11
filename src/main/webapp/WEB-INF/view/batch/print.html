@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>print</title>
+  <link rel="stylesheet" href="${ctxPath}/static/css/print.css">
+  <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+  <script src="${ctxPath}/static/js/common/Feng.js"></script>
+</head>
+<script type="text/javascript">
+    Feng.addCtx("${ctxPath}");
+    Feng.sessionTimeoutRegistry();
+</script>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <!-- 表1 -->
+      <div class="item">
+        <div class="tag">收样室联</div>
+        <div class="title"><h2>广州市高德珠宝检测委托检测收样单</h2></div>
+        <div class="top">
+          <table class="tableTop">
+              <thead>
+                <tr>
+                  <th>委托方</th>
+                  <th>联系电话</th>
+                  <th>样品总数</th>
+                  <th>证书编号</th>
+                  <th>单号</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="clientName1">六楼商户</td>
+                  <td id="clientPhone1">0000000000</td>
+                  <td id="gemNum1">1</td>
+                  <td id="reportCode1">GD123455667788-GD123455667788</td>
+                  <td id="batchCode1">GD123455667788</td>
+                </tr>
+              </tbody>            
+          </table>
+        </div>
+        <div class="middle">
+          <h4>样品情况及要求明细：</h4>
+          <p class="detail">
+            <span>玉石首饰</span>
+            <span id="gemNum11">1</span>
+            <span>珠宝玉石鉴定出证</span>
+          </p>
+        </div>
+        <div class="down">
+          <div class="left">
+            <div class="tableDown">
+              <table>
+                <thead>
+                  <tr>
+                    <th>送检时间</th>
+                    <th>预计取证时间</th>
+                    <th>采用标准</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td id="inspectionTime1">2017-9-17 15:29</td>
+                    <td id="samplingTime1">2017-9-17 15:29</td>
+                    <td id="standardName1">GD123455667788</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="signLeft">
+              <p>委托方通常要求：<span id="clientAsk1"></span></p>
+              <p>备注:<span id="batchRemarl1"></span></p>
+            </div>
+          </div>
+          <div class="right">
+            <div class="tip">请仔细阅读背面说明条款，委托方送样人一经签字，即同意条款内容。</div>
+            <div class="signRight">
+              <p>取样人签字：</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 表2 -->
+      <div class="item">
+        <div class="tag">委托方联</div>
+        <div class="title"><h2>广州市高德珠宝检测委托检测收样单</h2></div>
+        <div class="top">
+          <table class="tableTop">
+              <thead>
+                <tr>
+                  <th>委托方</th>
+                  <th>联系电话</th>
+                  <th>样品总数</th>
+                  <th>证书编号</th>
+                  <th>单号</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="clientName2">六楼商户</td>
+                  <td id="clientPhone2">0000000000</td>
+                  <td id="gemNum2">1</td>
+                  <td id="reportCode2">GD123455667788-GD123455667788</td>
+                  <td id="batchCode2">GD123455667788</td>
+                </tr>
+              </tbody>            
+          </table>
+        </div>
+        <div class="middle">
+          <h4>样品情况及要求明细：</h4>
+          <p class="detail">
+            <span>玉石首饰</span>
+            <span id="gemNum21">1</span>
+            <span>珠宝玉石鉴定出证</span>
+          </p>
+        </div>
+        <div class="down">
+          <div class="tableDown">
+            <table>
+              <thead>
+                <tr>
+                  <th>送检时间</th>
+                  <th>预计取证时间</th>
+                  <th>采用标准</th>
+                  <th>收样电话</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="inspectionTime2">2017-9-17 15:29</td>
+                    <td id="samplingTime2">2017-9-17 15:29</td>
+                    <td id="standardName2">GD123455667788</td>
+                    <td id="receivedPhone2">GD123455667788</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sign">
+            <div class="signLeft">
+              <p>委托方通常要求：<span id="clientAsk2"></span></p>
+              <p>备注:<span id="batchRemarl2"></span></p>
+            </div>
+            <div class="signRight">
+              <p>取样人签字：</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 表3 -->
+      <div class="item">
+        <div class="tag">检测室联</div>
+        <div class="title"><h2>广州市高德珠宝检测委托检测收样单</h2></div>
+        <div class="top">
+          <table class="tableTop">
+              <thead>
+                <tr>
+                  <th>委托方</th>
+                  <th>联系电话</th>
+                  <th>样品总数</th>
+                  <th>证书编号</th>
+                  <th>单号</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="clientName3">六楼商户</td>
+                  <td id="clientPhone3">0000000000</td>
+                  <td id="gemNum3">1</td>
+                  <td id="reportCode3">GD123455667788-GD123455667788</td>
+                  <td id="batchCode3">GD123455667788</td>
+                </tr>
+              </tbody>            
+          </table>
+        </div>
+        <div class="middle">
+          <h4>样品情况及要求明细：</h4>
+          <p class="detail">
+            <span>玉石首饰</span>
+            <span id="gemNum31">1</span>
+            <span>珠宝玉石鉴定出证</span>
+          </p>
+        </div>
+        <div class="msg">
+          <p>采用标准：<span id="standardName3"></span></p>
+          <p>委托方通常要求：<span id="clientAsk3"></span></p>
+          <p>备注:<span id="batchRemarl3"></span></p>
+        </div>
+        <div class="down">
+          <div class="tableDown_2">
+            <table>
+              <thead>
+                <tr>
+                  <th>一检</th>
+                  <th>红外</th>
+                  <th>二检</th>
+                  <th>拍照</th>
+                  <th>录入</th>
+                  <th>打印</th>
+                  <th>检查</th>
+                  <th>其他</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+<script>
+	function GetQueryString(name)
+	{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
+	
+	$(function(){
+		var id =  GetQueryString("id")
+		$.ajax({
+			url:'${ctxPath}/geminfo/batch/detailByPrint',
+		    type:'POST',
+		    async:true,
+		    data: JSON.stringify({"id":id}),
+		    contentType : "application/json; charset=utf-8",
+	    	dataType:'json',
+	    	success:function(data,textStatus,jqXHR){
+	    		loadPrint(data);
+		    },
+		})
+		
+		$.ajax({
+			url:'${ctxPath}/geminfo/reportcode/queryByBatch',
+		    type:'POST',
+		    async:true,
+		    data: JSON.stringify({"id":id}),
+		    contentType : "application/json; charset=utf-8",
+	    	dataType:'json',
+	    	success:function(data,textStatus,jqXHR){
+	    		loadReprtCode(data);
+		    },
+		})
+	})
+	
+	function loadPrint(data){
+		$("#clientName1").text(data.data.clientName);
+		$("#clientName2").text(data.data.clientName);
+		$("#clientName3").text(data.data.clientName);
+		$("#clientPhone1").text(data.data.clientPhone);
+		$("#clientPhone2").text(data.data.clientPhone);
+		$("#clientPhone3").text(data.data.clientPhone);
+		$("#gemNum1").text(data.data.gemNum);
+		$("#gemNum11").text(data.data.gemNum);
+		$("#gemNum2").text(data.data.gemNum);
+		$("#gemNum21").text(data.data.gemNum);
+		$("#gemNum3").text(data.data.gemNum);
+		$("#gemNum31").text(data.data.gemNum);
+		$("#batchCode1").text(data.data.batchCode);
+		$("#batchCode2").text(data.data.batchCode);
+		$("#batchCode3").text(data.data.batchCode);
+		$("#inspectionTime1").text(data.data.inspectionTime);
+		$("#inspectionTime2").text(data.data.inspectionTime);
+		$("#inspectionTime3").text(data.data.inspectionTime);
+		$("#samplingTime1").text(data.data.samplingTime);
+		$("#samplingTime2").text(data.data.samplingTime);
+		$("#samplingTime3").text(data.data.samplingTime);
+		$("#standardName1").text(data.data.standardName);
+		$("#standardName2").text(data.data.standardName);
+		$("#standardName3").text(data.data.standardName);
+		$("#batchRemarl1").text(data.data.batchRemarl);
+		$("#batchRemarl2").text(data.data.batchRemarl);
+		$("#batchRemarl3").text(data.data.batchRemarl);
+		$("#clientAsk1").text(data.data.clientAsk);
+		$("#clientAsk2").text(data.data.clientAsk);
+		$("#clientAsk3").text(data.data.clientAsk);
+		$("#receivedPhone2").text(data.data.receivedPhone);
+	}
+	
+	function loadReprtCode(data){
+		var num = data.data.length;
+		var code1 = data.data[0].reportCode;
+		var code2 = data.data[num-1].reportCode;
+		$("#reportCode1").text(code1 + "-" + code2);
+		$("#reportCode2").text(code1 + "-" + code2);
+		$("#reportCode3").text(code1 + "-" + code2);
+	}
+</script>

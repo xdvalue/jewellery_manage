@@ -1,0 +1,50 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>企业用户列表</h5>
+            </div>
+            <div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-lg-12 col-sm-12">
+								<div class="row">
+									<div class="col-lg-12 col-sm-12">
+										<div class="row">
+											<div class="col-sm-3">
+				                                <#NameCon id="batchCode" name="批次号" />
+				                            </div>
+				                            <div class="col-sm-2">
+				                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+				                            </div>
+				                            <div class="col-sm-2">
+				                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+				                            </div>
+											<div class="col-sm-2">
+												<#button name="查询" icon="fa-search" clickFun="EnterpriseList.search()" />
+											</div>
+										</div>
+									</div>
+									<div class="hidden-xs" id="managerTableToolbar" role="group">
+										<#button name="添加" icon="fa-add" clickFun="GemList.add(1)" space="true"/>
+										<#button name="编辑" icon="fa-edit" clickFun="GemList.edit()" space="true"/>
+										<#button name="复制" icon="fa-edit" clickFun="GemList.copy()" space="true"/>
+										<#button name="批量打印" icon="fa-edit" clickFun="GemList.batchPrint()" space="true"/>
+									</div>
+									<#table id="gemTable"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/gem/gem.js"></script>
+<link type="text/css" rel="stylesheet" href="${ctxPath}/static/css/plugins/bootstrap-fileinput/fileinput.css" />
+<script type="text/javascript" src="${ctxPath}/static/js/plugins/bootstrap-fileinput/fileinput.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/plugins/bootstrap-fileinput/fileinput_locale_zh.js"></script>
+@}

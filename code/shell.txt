@@ -1,0 +1,18 @@
+测试环境启动jar脚本赋可执行权限：
+chmod +x startup-cs.sh
+测试环境关闭jar脚本赋可执行权限：
+chmod +x shutdown-cs.sh
+测试环境备份脚本赋可执行权限：
+chmod +x backup-cs.sh
+
+生产环境启动jar脚本赋可执行权限：
+chmod +x startup-prd.sh
+生产环境关闭jar脚本赋可执行权限：
+chmod +x shutdown-prd.sh
+生产环境备份脚本赋可执行权限：
+chmod +x backup-prd.sh
+
+
+
+当执行Bash远程脚本报一些命令无法找到的错误时，需要在远程Bash脚本第一行加如下代码：
+source ~/.bashrc

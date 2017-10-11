@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.els.jewellery.manage.modular.geminfo.dao.GemMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.els.jewellery.manage.modular.geminfo.entity.Gem">
+		<id column="ID" property="id" />
+		<result column="BATCH_ID" property="batchId" />
+		<result column="BATCH_CODE" property="batchCode" />
+		<result column="REPORT_CODE" property="reportCode" />
+		<result column="GEM_NAME" property="gemName" />
+		<result column="GEM_WEIGHT" property="gemWeight" />
+		<result column="GEM_COLOUR" property="gemColour" />
+		<result column="GEM_VIBRANCE" property="gemVibrance" />
+		<result column="GEM_QUALITY" property="gemQuality" />
+		<result column="GEM_STAMP" property="gemStamp" />
+		<result column="GEM_ASSESSMENT_TIME" property="gemAssessmentTime" />
+		<result column="GEM_ACC_BODY" property="gemAccBody" />
+		<result column="GEM_ACC_CODE" property="gemAccCode" />
+		<result column="GEM_REMARK" property="gemRemark" />
+		<result column="GEM_PARAM_HUE" property="gemParamHue" />
+		<result column="GEM_PARAM_CONCENT" property="gemParamConcent" />
+		<result column="GEM_PARAM_FINISH" property="gemParamFinish" />
+		<result column="GEM_PARAM_REMARK" property="gemParamRemark" />
+		<result column="GEM_PARAM_IMG1" property="gemParamImg1" />
+		<result column="GEM_PARAM_IMG2" property="gemParamImg2" />
+		<result column="GEM_QUALITY_IMG" property="gemQualityImg" />
+		<result column="GEM_IMG" property="gemImg" />
+		<result column="GEM_QRCODE" property="gemQrcode" />
+		<result column="GEM_QRCODE_B" property="gemQrcodeB" />
+		<result column="GEM_LOGO" property="gemLogo" />
+		<result column="CREAT_TIME" property="creatTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="IS_ENABLE" property="isEnable" />
+		<result column="SERILA_NUMBER" property="serilaNumber" />
+	</resultMap>
+	
+	<select id="getGemList" resultMap="BaseResultMap" parameterType="com.baomidou.mybatisplus.plugins.Page">
+		SELECT * FROM T_BASE_GEM T WHERE T.IS_ENABLE = 1
+        <if test="beginTime != null and beginTime !=''">
+            and T.CREAT_TIME &gt;= CONCAT(#{beginTime},' 00:00:00')
+        </if>
+        <if test="endTime != null and endTime !=''">
+            and T.CREAT_TIME &lt;= CONCAT(#{endTime},' 23:59:59')
+        </if>
+        <if test="batchCode != null and batchCode !=''">
+            and T.BATCH_CODE = #{batchCode}
+        </if>
+        <choose>
+            <when test="orderByField != null and orderByField !=''">
+                <choose>
+                    <when test="isAsc == true">
+                        order by T.${orderByField} ASC
+                    </when>
+                    <otherwise>
+                        order by T.${orderByField} DESC
+                    </otherwise>
+                </choose>
+            </when>
+            <otherwise>
+                order by T.CREAT_TIME DESC
+            </otherwise>
+        </choose>
+	
+    </select>
+    
+    <select id="selectMaxNum" resultType="java.lang.String">
+		SELECT MAX(SERILA_NUMBER) FROM T_BASE_GEM
+	</select>
+
+</mapper>

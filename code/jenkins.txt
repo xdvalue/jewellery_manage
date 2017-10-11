@@ -1,0 +1,19 @@
+Jenkins自动化部署：
+http://119.23.132.137:10090/jenkins/
+
+portal_manage测试环境自动化部署jenkins脚本：
+
+scp -P 22195 /mnt/repos/jenkins/workspace/portal_manage-cs/target/manage.jar qqtadmin@39.108.169.195:/mnt/local/apps/tomcat/temp
+ssh -t qqtadmin@39.108.169.195 -p 22195 sh /mnt/local/apps/tomcat/portal_manage/shutdown-cs.sh
+ssh -t qqtadmin@39.108.169.195 -p 22195 sh /mnt/local/apps/tomcat/portal_manage/backup-cs.sh
+ssh -t qqtadmin@39.108.169.195 -p 22195 mv /mnt/local/apps/tomcat/temp/manage.jar /mnt/local/apps/tomcat/portal_manage
+ssh -t qqtadmin@39.108.169.195 -p 22195 sh /mnt/local/apps/tomcat/portal_manage/startup-cs.sh
+
+
+portal_manage生产环境自动化部署jenkins脚本：
+
+scp -P 22129 /mnt/repos/jenkins/workspace/portal_manage-prd/target/manage.jar qqtadmin@47.88.231.144:/mnt/local/tomcat8/temp
+ssh -t qqtadmin@47.88.231.144 -p 22129 sh /mnt/local/tomcat8/portal_manage/shutdown-prd.sh
+ssh -t qqtadmin@47.88.231.144 -p 22129 sh /mnt/local/tomcat8/portal_manage/backup-prd.sh
+ssh -t qqtadmin@47.88.231.144 -p 22129 mv /mnt/local/tomcat8/temp/manage.jar /mnt/local/tomcat8/portal_manage
+ssh -t qqtadmin@47.88.231.144 -p 22129 sh /mnt/local/tomcat8/portal_manage/startup-prd.sh

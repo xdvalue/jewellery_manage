@@ -1,0 +1,173 @@
+@layout("/common/_container.html"){
+
+
+<style type="text/css">
+	.longDiv {
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	.longDiv:hover {
+		overflow:visible;
+	}
+</style>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<input id="batchId" type="hidden" value=""/>
+		<input id="batchCode" type="hidden" value=""/>
+		<input id="imgUrl" type="hidden" value=""/>
+		<input id="gemColourImg" type="hidden" value=""/>
+		<input id="gemHcImg" type="hidden" value=""/>
+		<input id="logoimgUrl" type="hidden" value=""/>
+		<div class="form-horizontal" id="InfoForm">
+		<div class="row">
+			<div class="col-xs-12">
+				<input id="id" type="hidden" value="${id}"/>
+				<div class="col-xs-12" align="left">
+		            <h4>宝石信息</h4>
+		        </div>
+		        <br><br>
+		        <div class="col-xs-12"  id="batchTmp">
+				    <div class="col-xs-6" align="left" >
+			       		<div class='form-group'>
+			       			<label class='col-sm-3 control-label'>证书编号</label>
+			       			<div class='col-sm-9'>
+			       				<select class='form-control' id='reportCode' name='reportCode'>
+			       				</select>
+			       			</div>
+			       		</div>
+				    </div>
+			    </div>
+		        <div class="col-xs-12">
+			       <div class="col-xs-6" align="left">
+			       	 <div class='form-group'>
+			       			<label class='col-sm-3 control-label'>宝石名称</label>
+			       			<div class='col-sm-9'>
+			       				<select class='form-control' id='reportCode' name='reportCode'>
+			       					<option value="天然红宝石">天然红宝石</option>
+			       					<option value="天然蓝宝石">天然蓝宝石</option>
+			       					<option value="天然祖母绿">天然祖母绿</option>
+			       					<option value="天然钻石">天然钻石</option>
+			       				</select>
+			       			</div>
+			       		</div>
+			        
+				    </div>
+				    <div class="col-xs-6" align="left">
+				    <#inputS id="gemWeight" name="宝石重量" underline="true" style="width:70%;display: inline" />
+				    </div>
+			    </div>
+			    
+			    <div class="col-xs-12">
+			        <div class="col-xs-6" align="left">
+			        <#input id="gemAccBody" name="鉴定机构" underline="true" />
+			        
+			        </div>
+			        <div class="col-xs-6" align="left">
+			        <#input id="gemAssessmentTime" name="评定日期" underline="true" />
+			           
+			        </div>
+		        </div>
+		        
+		        <div class="col-xs-12">
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemQuality" name="火彩质量" underline="true" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			            <div class='form-group'>
+			       			<label class='col-sm-3 control-label'>宝石印记</label>
+			       			<div class='col-sm-9'>
+			       				<select class='form-control' id='gemStamp' name='gemStamp'>
+			       					<option value="椭圆形">椭圆形</option>
+			       					<option value="圆形">圆形</option>
+			       					<option value="水滴形">水滴形</option>
+			       					<option value="马眼形">马眼形</option>
+			       					<option value="心形">心形</option>
+			       					<option value="正方形">正方形</option>
+			       					<option value="长方形">长方形</option>
+			       					<option value="三角形">三角形</option>
+			       					<option value="八角方形">八角方形</option>
+			       					<option value="八角长方形">八角长方形</option>
+			       					<option value="盾形">盾形</option>
+			       					<option value="枕形">枕形</option>
+			       					<option value="三角形">异形</option>
+			       				</select>
+			       			</div>
+			       		</div>
+			        </div>
+		        </div>
+		        
+		        <div class="col-xs-12">
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemAccCode" name="证书编号" underline="true" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemRemark" name="宝石备注" underline="true" />
+			        </div>
+		        </div>
+	        </div>
+	        <div class="col-xs-12" style="padding-bottom: 10px;border-bottom:1px solid #ccc;border-top:1px solid #ccc;margin-bottom:20px;">
+	        	<div class="col-xs-12" style="margin-top:30px">
+			        <div class="col-xs-6" align="left">
+			       		<#input id="keyA" name="快捷键A" underline="true" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			       		<#input id="keyB" name="快捷键B" underline="true" />
+			        </div>
+			        
+		        </div>
+		        <div class="col-xs-12">
+			        <div class="col-xs-6" align="left">
+			            <#button btnCss="info" name="确认快捷键" id="ensure" icon="fa-check" clickFun="findKey()" />
+			        </div>
+		        </div>
+	        	<div class="col-xs-12" style="margin-top:30px">
+			        <div class="col-xs-6" align="left">
+			       		<#input id="gemVibrance" name="宝石鲜艳度" underline="true" readonly="readonly" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemColour" name="宝石颜色" underline="true" readonly="readonly" />
+			        </div>
+		        </div>
+		        <div class="col-xs-12" style="margin-top:30px">
+			        <div class="col-xs-6" align="left">
+			       		<#input id="gemParamHue" name="宝石色调参数" underline="true" readonly="readonly" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemParamConcent" name=" 宝石浓度参数" underline="true" readonly="readonly" />
+			        </div>
+		        </div>
+		        <div class="col-xs-12" style="margin-top:30px">
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemParamFinish" name="宝石修饰度参数" underline="true" readonly="readonly" />
+			        </div>
+			        <div class="col-xs-6" align="left">
+			            <#input id="gemParamRemark" name="宝石参数备注" underline="true" />
+			        </div>
+		        </div>
+			</div>
+			<div class="col-xs-12" style="padding-bottom: 10px;border-bottom:1px solid #ccc;margin-bottom:20px;">
+		        <div class="col-xs-12" align="left" style="padding-bottom: 20px;">
+		            <h4>备用LOGO图片</h4>
+		        </div>
+		        <div class="col-xs-12" style="padding-bottom: 20px;" id="logoimgDiv">
+				    <div class="col-xs-6" style="padding-bottom: 20px;"id="logoimgUpload">
+			        	<input type="file" name="file" id="logofile" class="projectfile" value=""/>
+		        	</div>
+		        </div>
+		        
+			</div>
+		</div>
+	 	<div class="row btn-group-m-t">
+			<div class="col-sm-10">
+				<#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="save()" />
+				<button type="button" class="btn btn-default" onclick="closeWin()">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+<link type="text/css" rel="stylesheet" href="${ctxPath}/static/css/plugins/bootstrap-fileinput/fileinput.css" />
+<script type="text/javascript" src="${ctxPath}/static/js/plugins/bootstrap-fileinput/fileinput.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/plugins/bootstrap-fileinput/fileinput_locale_zh.js"></script>	
+<script src="${ctxPath}/static/modular/gem/copy.js"></script>
+@}

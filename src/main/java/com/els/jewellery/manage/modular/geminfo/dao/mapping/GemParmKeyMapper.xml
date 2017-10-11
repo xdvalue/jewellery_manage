@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.els.jewellery.manage.modular.geminfo.dao.GemParmKeyMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.els.jewellery.manage.modular.geminfo.entity.GemParmKey">
+		<id column="ID" property="id" />
+		<result column="PARM_KEY" property="parmKey" />
+		<result column="GEM_COLOUR" property="gemColour" />
+		<result column="GEM_PARAM_HUE" property="gemParamHue" />
+		<result column="GEM_PARAM_CONCENT" property="gemParamConcent" />
+		<result column="GEM_PARAM_FINISH" property="gemParamFinish" />
+		<result column="GEM_VIBRANCE" property="gemVibrance" />
+		<result column="GEM_IMG" property="gemImg" />
+		<result column="CREAT_TIME" property="creatTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="IS_ENABLE" property="isEnable" />
+	</resultMap>
+
+</mapper>

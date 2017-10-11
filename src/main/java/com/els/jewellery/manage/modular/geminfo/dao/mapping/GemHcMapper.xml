@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.els.jewellery.manage.modular.geminfo.dao.GemHcMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.els.jewellery.manage.modular.geminfo.entity.GemHc">
+		<result column="ID" property="id" />
+		<result column="HC_KEY" property="hcKey" />
+		<result column="HC_NAME" property="hcName" />
+		<result column="HC_IMG" property="hcImg" />
+		<result column="CERAT_TIME" property="ceratTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="IS_ENABLE" property="isEnable" />
+	</resultMap>
+
+</mapper>

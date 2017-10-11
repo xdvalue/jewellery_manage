@@ -1,0 +1,523 @@
+﻿<!doctype html>
+<html>
+<title>打印预览</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/context/context.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/drag.js" ></script>
+<script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/static/js/jquery.jqprint-0.3.js" ></script>
+<script src="${ctxPath}/static/js/common/Feng.js"></script>
+<script type="text/javascript"src="http://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctxPath}/static/js/context/context.standalone.css">
+<script type="text/javascript">
+    Feng.addCtx("${ctxPath}");
+    Feng.sessionTimeoutRegistry();
+</script>
+<style type="text/css">
+html,body{margin:0;padding:0;font:14px/1.5em simsun;}
+#canvas{position:absolute;left:0px;top:0px;z-index:9;background:#fff;}
+.transparent{filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+.box{width:200px;height:100px;cursor:move;position:absolute;top:30px;left:30px;z-index:99;}
+.box .bg{width:100%;height:100%;background-color:orange;}
+.box .coor{width:10px;height:10px;overflow:hidden;cursor:se-resize;position:absolute;right:0;bottom:0;background-color:red;}
+.box .content{position:absolute;left:50%;top:50%;z-index:99;text-align:center;font:bold 14px/1.5em simsun;}
+
+#debug{position:absolute;right:10px;top:10px;z-index:88;border:1px solid #ccc;width:100px;height:100px;background:#fff;}
+#toolbar{position:absolute;left:10px;top:10px;z-index:88;}
+
+</style>
+</head>
+<body class="list">
+<div id="toolbar">
+	<input type="button" value="生成打印结果 图" class="btn" id="btn_save" />
+</div>
+<div id="canvas">
+	<img src="${ctxPath}/static/img/demo_picture.jpg" />
+</div>
+<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id="wb" name="wb" width=0></OBJECT>
+<div id="imgcontainer"></div>
+</body>
+</html>
+<script>
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+$(function(){
+	var id =  GetQueryString("id")
+	$.ajax({
+		url:'${ctxPath}/geminfo/gem/detailByPrint',
+	    type:'POST',
+	    async:true,
+	    data: JSON.stringify({"id":id}),
+	    contentType : "application/json; charset=utf-8",
+    	dataType:'json',
+    	success:function(data,textStatus,jqXHR){
+    		loadPrint(data);
+	    },
+	})
+	
+	$("#btn_save").click(function(){
+		var reportCode = $("div[dataid='reportCode'] > pre").text();
+		var reportCodeX = $("[dataid='reportCode']").css("left").split("p")[0].split(".")[0];
+		var reportCodeY = $("[dataid='reportCode']").css("top").split("p")[0].split(".")[0];
+		var gemNameAndWeight = $("[dataid='gemNameAndWeight'] > pre").text();
+		var gemNameAndWeightX = $("[dataid='gemNameAndWeight']").css("left").split("p")[0].split(".")[0];
+		var gemNameAndWeightY = $("[dataid='gemNameAndWeight']").css("top").split("p")[0].split(".")[0];
+		var gemColourAndVibrance = $("[dataid='gemColourAndVibrance'] > pre").text();
+		var gemColourAndVibranceX = $("[dataid='gemColourAndVibrance']").css("left").split("p")[0].split(".")[0];
+		var gemColourAndVibranceY = $("[dataid='gemColourAndVibrance']").css("top").split("p")[0].split(".")[0];
+		var gemQuality = $("[dataid='gemQuality'] > pre").text();
+		var gemQualityX = $("[dataid='gemQuality']").css("left").split("p")[0].split(".")[0];
+		var gemQualityY = $("[dataid='gemQuality']").css("top").split("p")[0].split(".")[0];
+		var gemStampAndNameAndWeight = $("[dataid='gemStampAndNameAndWeight'] > pre").text();
+		var gemStampAndNameAndWeightX = $("[dataid='gemStampAndNameAndWeight']").css("left").split("p")[0].split(".")[0];
+		var gemStampAndNameAndWeightY = $("[dataid='gemStampAndNameAndWeight']").css("top").split("p")[0].split(".")[0];
+		var gemAssessmentTime = $("[dataid='gemAssessmentTime'] > pre").text();
+		var gemAssessmentTimeX = $("[dataid='gemAssessmentTime']").css("left").split("p")[0].split(".")[0];
+		var gemAssessmentTimeY = $("[dataid='gemAssessmentTime']").css("top").split("p")[0].split(".")[0];
+		var gemAccBodyAndCode = $("[dataid='gemAccBodyAndCode'] > pre").text();
+		var gemAccBodyAndCodeX = $("[dataid='gemAccBodyAndCode']").css("left").split("p")[0].split(".")[0];
+		var gemAccBodyAndCodeY = $("[dataid='gemAccBodyAndCode']").css("top").split("p")[0].split(".")[0];
+		var gemRemark = $("[dataid='gemRemark'] > pre").text();
+		var gemRemarkX = $("[dataid='gemRemark']").css("left").split("p")[0].split(".")[0];
+		var gemRemarkY = $("[dataid='gemRemark']").css("top").split("p")[0].split(".")[0];
+		var colourAndLevel = $("[dataid='colourAndLevel'] > pre").text();
+		var colourAndLevelX = $("[dataid='colourAndLevel']").css("left").split("p")[0].split(".")[0];
+		var colourAndLevelY = $("[dataid='colourAndLevel']").css("top").split("p")[0].split(".")[0];
+		var gemVibrance = $("[dataid='gemVibrance'] > pre").text();
+		var gemVibranceX = $("[dataid='gemVibrance']").css("left").split("p")[0].split(".")[0];
+		var gemVibranceY = $("[dataid='gemVibrance']").css("top").split("p")[0].split(".")[0];
+		var gemParamHue = $("[dataid='gemParamHue'] > pre").text();
+		var gemParamHueX = $("[dataid='gemParamHue']").css("left").split("p")[0].split(".")[0];
+		var gemParamHueY = $("[dataid='gemParamHue']").css("top").split("p")[0].split(".")[0];
+		var gemParamConcent = $("[dataid='gemParamConcent'] > pre").text();
+		var gemParamConcentX = $("[dataid='gemParamConcent']").css("left").split("p")[0].split(".")[0];
+		var gemParamConcentY = $("[dataid='gemParamConcent']").css("top").split("p")[0].split(".")[0];
+		var gemParamFinish = $("[dataid='gemParamFinish'] > pre").text();
+		var gemParamFinishX = $("[dataid='gemParamFinish']").css("left").split("p")[0].split(".")[0];
+		var gemParamFinishY = $("[dataid='gemParamFinish']").css("top").split("p")[0].split(".")[0];
+		var gemParamRemark = $("[dataid='gemParamRemark'] > pre").text();
+		var gemParamRemarkX = $("[dataid='gemParamRemark']").css("left").split("p")[0].split(".")[0];
+		var gemParamRemarkY = $("[dataid='gemParamRemark']").css("top").split("p")[0].split(".")[0];
+		var gemColourImg = $("[dataid='gemColourImg'] > img").attr("src");
+		var gemColourImgX = $("[dataid='gemColourImg']").css("left").split("p")[0].split(".")[0];
+		var gemColourImgY = $("[dataid='gemColourImg']").css("top").split("p")[0].split(".")[0];
+		var gemHcImg = $("[dataid='gemHcImg'] > img").attr("src");
+		var gemHcImgX = $("[dataid='gemHcImg']").css("left").split("p")[0].split(".")[0];
+		var gemHcImgY = $("[dataid='gemHcImg']").css("top").split("p")[0].split(".")[0];
+		var gemQRImg = $("[dataid='gemQRImg'] > img").attr("src");
+		var gemQRImgX = $("[dataid='gemQRImg']").css("left").split("p")[0].split(".")[0];
+		var gemQRImgY = $("[dataid='gemQRImg']").css("top").split("p")[0].split(".")[0];
+
+		// post请求
+		var data = {"reportCode" : reportCode + "%&" + reportCodeX + "," + reportCodeY,
+				"gemNameAndWeight" : gemNameAndWeight + "%&" + gemNameAndWeightX + "," + gemNameAndWeightY,
+				"gemColourAndVibrance" : gemColourAndVibrance + "%&" + gemColourAndVibranceX + "," + gemColourAndVibranceY,
+				"gemQuality" : gemQuality + "%&" + gemQualityX + "," + gemQualityY,
+				"gemStampAndNameAndWeight" : gemStampAndNameAndWeight + "%&" + gemStampAndNameAndWeightX + "," + gemStampAndNameAndWeightY,
+				"gemAssessmentTime" : gemAssessmentTime + "%&" + gemAssessmentTimeX + "," + gemAssessmentTimeY,
+				"gemAccBodyAndCode" : gemAccBodyAndCode + "%&" + gemAccBodyAndCodeX + "," + gemAccBodyAndCodeY,
+				"gemRemark" : gemRemark + "%&" + gemRemarkX + "," + gemRemarkY,
+				"ColourAndLevel" : colourAndLevel + "%&" + colourAndLevelX + "," + colourAndLevelY,
+				"gemVibrance" : gemVibrance + "%&" + gemVibranceX + "," + gemVibranceY,
+				"gemParamHue" : gemParamHue + "%&" + gemParamHueX + "," + gemParamHueY,
+				"gemParamConcent" : gemParamConcent + "%&" + gemParamConcentX + "," + gemParamConcentY,
+				"gemParamFinish" : gemParamFinish + "%&" + gemParamFinishX + "," + gemParamFinishY,
+				"gemParamRemark" : gemParamRemark + "%&" + gemParamRemarkX + "," + gemParamRemarkY,
+				"gemColourImg" : gemColourImg + "%&" + gemColourImgX + "," + gemColourImgY,
+				"gemHcImg" : gemHcImg + "%&" + gemHcImgX + "," + gemHcImgY,
+				"gemQRImg" : gemQRImg + "%&" + gemQRImgX + "," + gemQRImgY,};
+		
+		var xhr = createXHR();
+		// 定义xhr对象的请求响应事件
+		xhr.onreadystatechange = function() {
+		    switch(xhr.readyState) {
+		        case 0 :
+		            //alert("请求未初始化");
+		            break; 
+		        case 1 :
+		            //alert("请求启动，尚未发送");
+		            break;
+		        case 2 :
+		            //alert("请求发送，尚未得到响应");
+		            break;
+		        case 3 : 
+		            //alert("请求开始响应，收到部分数据");
+		            break;
+		        case 4 :
+		            if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+		                var    data = xhr.response;
+		                var img = document.createElement("img");
+	                    img.onload = function(e) {
+	                        //$("#imgcontainer").jqprint();
+	                        $("#toolbar").hide();
+	                        $("#canvas").hide();
+	                        window.print();
+	                        
+	                        window.URL.revokeObjectURL(img.src);
+	                       
+	                    };
+	                    img.src = window.URL.createObjectURL(data);
+	                    $("#imgcontainer").html(img);
+		            }else {
+		                alert("Request was unsuccessful : " + xhr.status + " " + xhr.statusText);
+		            }
+		            break;
+		    }
+		};
+		xhr.open("post", "${ctxPath}/geminfo/gem/getImg", true);
+		xhr.responseType = "blob";
+		// 不支持FormData的浏览器的处理 
+		if(typeof FormData == "undefined") {
+		    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+		}
+		xhr.send(JSON.stringify(data));
+	})
+	
+});
+
+function loadPrint(data){
+	//初始化计数器
+	var num = 0;
+	//区块锁定标识
+	var lock = false;
+	//加载layer拓展
+	layer.config({
+	    extend: 'extend/layer.ext.js'
+	});
+	//右键菜单参数
+	context.init({
+	    fadeSpeed: 100,
+	    filter: function ($obj){},
+	    above: 'auto',
+	    preventDoubleContext: true,
+	    compress: false
+	});
+	//调试输出方法
+	function debug(msg){
+		$("#debug").text(msg);
+	}
+	function createBox(data){
+		var dataId = data.id || '';
+		var value = data.text || '';
+		var color = data.color || '';
+		var height = data.height || 0;
+		var width = data.width || 0;
+		var pageX = data.pageX || 0;
+		var pageY = data.pageY || 0;
+		var w1 = data.w1 || 0;
+		var he = data.he || 0;
+		var type = data.type || '';
+		
+		//更新计数器并记录当前计数
+		var curNum = num++;
+		//创建区域块
+		var pos = $("#canvas").position();
+		if(type == "text"){
+			var box = $('<div class="box" rel="'+curNum+'" dataId="'+dataId+'"><pre class="content">'+value+'</pre></div>').css({
+				width : width,
+				height : height,
+				top : pageY > 0 ? pageY : (pos.top > 0 ? 0 : pos.top * -1 + 50),
+				left : pageX > 0 ? pageX : (pos.left > 0 ? 0 : pos.left * -1 + 30)
+			}).appendTo("#canvas");
+		}else{
+			var box = $('<div class="box" rel="'+curNum+'" dataId="'+dataId+'"><img src="'+ value +'" width="'+ w1 +'" height="'+he+'"/></div>').css({
+				width : width,
+				height : height,
+				top : pageY > 0 ? pageY : (pos.top > 0 ? 0 : pos.top * -1 + 50),
+				left : pageX > 0 ? pageX : (pos.left > 0 ? 0 : pos.left * -1 + 30)
+			}).appendTo("#canvas");
+		}
+		
+		
+		//计算文本位置
+		box.find('.content').css({
+			marginTop : box.find('.content').height()/2*-1
+		});
+		//创建右键菜单
+		context.attach('.box[rel='+curNum+']', [
+			{header: '操作'},
+			{text: '编辑区域说明', action: function(e){
+			    	e.preventDefault();
+			    	layer.prompt({
+						title: '请输入区域说明',
+						formType: 2,
+						value: $('.box[rel='+curNum+'] .content').text()
+					}, function(value, index, elem){
+						layer.close(index);
+						var curCont = $('.box[rel='+curNum+'] .content');
+						curCont.text(value).css({
+							marginLeft : curCont.width()/2*-1,
+							marginTop : curCont.height()/2*-1
+						});
+					});
+			    }
+			},
+			{text: '更改区域尺寸', action: function(e){
+					e.preventDefault();
+					layer.prompt({
+						title: '请输入区域尺寸（宽,高），最小值：30',
+						formType: 0,
+						value: $('.box[rel='+curNum+']').width()+","+$('.box[rel='+curNum+']').height()
+					}, function(value, index, elem){
+						var reg = /^[0-9]+,[0-9]+$/;
+						if(!reg.test(value)){
+							alert('输入格式不正确，例：100,200');
+							return;
+						}
+						var size = value.split(',');
+						var box = $('.box[rel='+curNum+']');
+						box.css({
+							width : size[0] < 30 ? 30 : size[0],
+							height : size[1] < 30 ? 30 : size[1]
+						});
+						layer.close(index);
+					});
+				}
+			},
+			{text: '删除区域', action: function(e){
+			    	e.preventDefault();
+					$('.box[rel='+curNum+']').remove();
+			    }
+			},
+			{divider: true},
+			{header: '更改颜色'},
+			{text: '<font color="orange">橙色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'orange');
+			    }
+			},
+			{text: '<font color="red">红色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'red');
+			    }
+			},
+			{text: '<font color="blue">蓝色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'blue');
+			    }
+			},
+			{text: '<font color="green">绿色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'green');
+			    }
+			},
+			{text: '<font color="purple">紫色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'purple');
+			    }
+			},
+			{text: '<font color="yellow">黄色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'yellow');
+			    }
+			}
+		]);
+	}
+	//添加区域
+	$("#btn_add").click(function(){
+		//弹出区域说明输入框
+		layer.prompt({
+			title: '请输入区域说明',
+			formType: 2 //0:input,1:password,2:textarea
+		}, function(value, index, elem){
+			layer.close(index);
+			createBox({
+				text : value,
+				width : 200,
+				height : 100
+			});
+		});
+	});
+	//锁定区域
+	$('#btn_lock').click(function(){
+		if(lock){
+			$(this).val("锁定区域");
+			lock = false;
+			$('.box .coor').show();
+		}else{
+			$(this).val("解锁区域");
+			lock = true;
+			$('.box .coor').hide();
+		}
+	});
+	//创建拖拽方法
+	$("#canvas").mousedown(function(e){
+		var canvas = $(this);
+	    e.preventDefault();
+	    var pos = $(this).position();
+	    this.posix = {'x': e.pageX - pos.left, 'y': e.pageY - pos.top};
+	    $.extend(document, {'move': true, 'move_target': this, 'call_down' : function(e, posix){
+	    	canvas.css({
+	    		'cursor': 'move',
+	    		'top': e.pageY - posix.y,
+				'left': e.pageX - posix.x
+			});
+	    }, 'call_up' : function(){
+	    	canvas.css('cursor', 'default');
+	    }});
+	}).on('mousedown', '.box', function(e) {
+		if(lock) return;
+	    var pos = $(this).position();
+	    this.posix = {'x': e.pageX - pos.left, 'y': e.pageY - pos.top};
+	    $.extend(document, {'move': true, 'move_target': this});
+	    e.stopPropagation();
+	}).on('mousedown', '.box .coor', function(e) {
+		var $box = $(this).parent();
+	    var posix = {
+	            'w': $box.width(), 
+	            'h': $box.height(), 
+	            'x': e.pageX, 
+	            'y': e.pageY
+	        };
+	    $.extend(document, {'move': true, 'call_down': function(e) {
+	    	$box.css({
+	            'width': Math.max(30, e.pageX - posix.x + posix.w),
+	            'height': Math.max(30, e.pageY - posix.y + posix.h)
+	        });
+	    }});
+	    e.stopPropagation();
+	});
+	//测试加载
+	var reportCode = (data.data.reportCode).split("%&")[0];
+	var reportCodeX = parseFloat(((data.data.reportCode).split("%&")[1]).split(",")[0]);
+	var reportCodeY = parseFloat(((data.data.reportCode).split("%&")[1]).split(",")[1])-38;
+	var gemNameAndWeight = (data.data.gemNameAndWeight).split("%&")[0];
+	var gemNameAndWeightX = parseFloat(((data.data.gemNameAndWeight).split("%&")[1]).split(",")[0]);
+	var gemNameAndWeightY = parseFloat(((data.data.gemNameAndWeight).split("%&")[1]).split(",")[1])-38;
+	var gemColourAndVibrance = (data.data.gemColourAndVibrance).split("%&")[0];
+	var gemColourAndVibranceX = parseFloat(((data.data.gemColourAndVibrance).split("%&")[1]).split(",")[0]);
+	var gemColourAndVibranceY = parseFloat(((data.data.gemColourAndVibrance).split("%&")[1]).split(",")[1])-38;
+	var gemQuality = (data.data.gemQuality).split("%&")[0];
+	var gemQualityX = parseFloat(((data.data.gemQuality).split("%&")[1]).split(",")[0]);
+	var gemQualityY = parseFloat(((data.data.gemQuality).split("%&")[1]).split(",")[1])-38;
+	var gemStampAndNameAndWeight = (data.data.gemStampAndNameAndWeight).split("%&")[0];
+	var gemStampAndNameAndWeightX = parseFloat(((data.data.gemStampAndNameAndWeight).split("%&")[1]).split(",")[0]);
+	var gemStampAndNameAndWeightY = parseFloat(((data.data.gemStampAndNameAndWeight).split("%&")[1]).split(",")[1])-38;
+	var gemAssessmentTime = (data.data.gemAssessmentTime).split("%&")[0];
+	var gemAssessmentTimeX = parseFloat(((data.data.gemAssessmentTime).split("%&")[1]).split(",")[0]);
+	var gemAssessmentTimeY = parseFloat(((data.data.gemAssessmentTime).split("%&")[1]).split(",")[1])-38;
+	var gemAccBodyAndCode = (data.data.gemAccBodyAndCode).split("%&")[0];
+	var gemAccBodyAndCodeX = parseFloat(((data.data.gemAccBodyAndCode).split("%&")[1]).split(",")[0]);
+	var gemAccBodyAndCodeY = parseFloat(((data.data.gemAccBodyAndCode).split("%&")[1]).split(",")[1])-38;
+	var gemRemark = (data.data.gemRemark).split("%&")[0];
+	var gemRemarkX = parseFloat(((data.data.gemRemark).split("%&")[1]).split(",")[0]);
+	var gemRemarkY = parseFloat(((data.data.gemRemark).split("%&")[1]).split(",")[1])-38;
+	var colourAndLevel = (data.data.colourAndLevel).split("%&")[0];
+	var colourAndLevelX = parseFloat(((data.data.colourAndLevel).split("%&")[1]).split(",")[0]);
+	var colourAndLevelY = parseFloat(((data.data.colourAndLevel).split("%&")[1]).split(",")[1])-38;
+	var gemVibrance = (data.data.gemVibrance).split("%&")[0];
+	var gemVibranceX = parseFloat(((data.data.gemVibrance).split("%&")[1]).split(",")[0]);
+	var gemVibranceY = parseFloat(((data.data.gemVibrance).split("%&")[1]).split(",")[1])-38;
+	var gemParamHue = (data.data.gemParamHue).split("%&")[0];
+	var gemParamHueX = parseFloat(((data.data.gemParamHue).split("%&")[1]).split(",")[0]);
+	var gemParamHueY = parseFloat(((data.data.gemParamHue).split("%&")[1]).split(",")[1])-38;
+	var gemParamConcent = (data.data.gemParamConcent).split("%&")[0];
+	var gemParamConcentX = parseFloat(((data.data.gemParamConcent).split("%&")[1]).split(",")[0]);
+	var gemParamConcentY = parseFloat(((data.data.gemParamConcent).split("%&")[1]).split(",")[1])-38;
+	var gemParamFinish = (data.data.gemParamFinish).split("%&")[0];
+	var gemParamFinishX = parseFloat(((data.data.gemParamFinish).split("%&")[1]).split(",")[0]);
+	var gemParamFinishY = parseFloat(((data.data.gemParamFinish).split("%&")[1]).split(",")[1])-38;
+	var gemParamRemark = (data.data.gemParamRemark).split("%&")[0];
+	var gemParamRemarkX = parseFloat(((data.data.gemParamRemark).split("%&")[1]).split(",")[0]);
+	var gemParamRemarkY = parseFloat(((data.data.gemParamRemark).split("%&")[1]).split(",")[1])-38;
+	var gemColourImg = (data.data.gemColourImg).split("%&")[0];
+	var gemColourImgX = parseFloat(((data.data.gemColourImg).split("%&")[1]).split(",")[0]);
+	var gemColourImgY = parseFloat(((data.data.gemColourImg).split("%&")[1]).split(",")[1])-38;
+	
+	var gemHcImg = (data.data.gemHcImg).split("%&")[0];
+	var gemHcImgX = parseFloat(((data.data.gemHcImg).split("%&")[1]).split(",")[0]);
+	var gemHcImgY = parseFloat(((data.data.gemHcImg).split("%&")[1]).split(",")[1])-38;
+	var gemQRImg = (data.data.gemQRImg).split("%&")[0];
+	var gemQRImgX = parseFloat(((data.data.gemQRImg).split("%&")[1]).split(",")[0]);
+	var gemQRImgY = parseFloat(((data.data.gemQRImg).split("%&")[1]).split(",")[1])-38;
+	
+	var loadData = [{id : "reportCode",text : reportCode,color : "rgb(255, 0, 0)",height : 30,pageX : reportCodeX,pageY : reportCodeY,type:"text"},
+	                {id : "gemNameAndWeight",text : gemNameAndWeight,color : "rgb(255, 0, 0)",height : 30,pageX : gemNameAndWeightX,pageY : gemNameAndWeightY,type:"text"},
+	                {id : "gemColourAndVibrance",text : gemColourAndVibrance,color : "rgb(255, 0, 0)",height : 30,pageX : gemColourAndVibranceX,pageY : gemColourAndVibranceY,type:"text"},
+	                {id : "gemQuality",text : gemQuality,color : "rgb(255, 0, 0)",height : 30,pageX : gemQualityX,pageY : gemQualityY,type:"text"},
+	                {id : "gemStampAndNameAndWeight",text : gemStampAndNameAndWeight,color : "rgb(255, 0, 0)",height : 30,pageX : gemStampAndNameAndWeightX,pageY : gemStampAndNameAndWeightY,type:"text"},
+	                {id : "gemAssessmentTime",text : gemAssessmentTime,color : "rgb(255, 0, 0)",height : 30,pageX : gemAssessmentTimeX,pageY : gemAssessmentTimeY,type:"text"},
+	                {id : "gemAccBodyAndCode",text : gemAccBodyAndCode,color : "rgb(255, 0, 0)",height : 30,pageX : gemAccBodyAndCodeX,pageY : gemAccBodyAndCodeY,type:"text"},
+	                {id : "gemRemark",text : gemRemark,color : "rgb(255, 0, 0)",height : 30,pageX : gemRemarkX,pageY : gemRemarkY,type:"text"},
+	                {id : "colourAndLevel",text : colourAndLevel,color : "rgb(255, 0, 0)",height : 30,pageX : colourAndLevelX,pageY : colourAndLevelY,type:"text"},
+	                {id : "gemVibrance",text : gemVibrance,color : "rgb(255, 0, 0)",height : 30,pageX : gemVibranceX,pageY : gemVibranceY,type:"text"},
+	                {id : "gemParamHue",text : gemParamHue,color : "rgb(255, 0, 0)",height : 30,pageX : gemParamHueX,pageY : gemParamHueY,type:"text"},
+	                {id : "gemParamConcent",text : gemParamConcent,color : "rgb(255, 0, 0)",height : 30,pageX : gemParamConcentX,pageY : gemParamConcentY,type:"text"},
+	                {id : "gemParamFinish",text : gemParamFinish,color : "rgb(255, 0, 0)",height : 30,pageX : gemParamFinishX,pageY : gemParamFinishY,type:"text"},
+	                {id : "gemParamRemark",text : gemParamRemark,color : "rgb(255, 0, 0)",height : 30,pageX : gemParamRemarkX,pageY : gemParamRemarkY,type:"text"},
+	                {id : "gemColourImg",text : gemColourImg,color : "rgb(255, 0, 0)",height : 30,pageX : gemColourImgX,pageY : gemColourImgY,type:"img",w1:287,he:220},
+	                {id : "gemHcImg",text : gemHcImg,color : "rgb(255, 0, 0)",height : 30,pageX : gemHcImgX,pageY : gemHcImgY,type:"img",w1:287,he:66},
+	                {id : "gemQRImg",text : gemQRImg,color : "rgb(255, 0, 0)",height : 30,pageX : gemQRImgX,pageY : gemQRImgY,type:"img",w1:58,he:58},
+	                ];
+	$.each(loadData, function(i, row){
+		createBox(row);
+	});	
+}
+
+/*
+ * 统一XHR接口
+ */
+function createXHR() {
+    // IE7+,Firefox, Opera, Chrome ,Safari
+    if(typeof XMLHttpRequest != "undefined") {
+        return new XMLHttpRequest();
+    }
+    // IE6-
+    else if(typeof ActiveXObject != "undefined"){
+        if(typeof arguments.callee.activeXString != "string") {
+            var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXMLHttp"],
+            i, len;
+            for(i = 0, len = versions.length; i < len; i++) {
+                try{
+                    new ActiveXObject(versions[i]);
+                    arguments.callee.activeXString = versions[i];
+                    break;
+                }catch(ex) {
+                    alert("请升级浏览器版本");
+                }
+            }
+        }
+        return arguments.callee.activeXString;        
+    }else {
+        throw new Error("XHR对象不可用");
+    }
+}
+
+
+
+// post请求
+// 格式化post 传递的数据
+function postDataFormat(obj){
+    if(typeof obj != "object" ) {
+        alert("输入的参数必须是对象");
+        return;
+    }
+
+    // 支持有FormData的浏览器（Firefox 4+ , Safari 5+, Chrome和Android 3+版的Webkit）
+    if(typeof FormData == "function") {
+        var data = new FormData();
+        for(var attr in obj) {
+            data.append(attr,obj[attr]);
+        }
+        return data;
+    }else {
+        // 不支持FormData的浏览器的处理 
+        var arr = new Array();
+        var i = 0;
+        for(var attr in obj) {
+            arr[i] = encodeURIComponent(attr) + "=" + encodeURIComponent(obj[attr]);
+            i++;
+        }
+        return arr.join("&");
+    }
+}
+</script>

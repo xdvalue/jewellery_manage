@@ -1,0 +1,350 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font: 12px/1.5 arial, 'Microsoft YaHei', SimSun, serif;
+  _font-family: SimSun;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: courier new,courier,monospace;
+}
+small {
+  font-size: 12px;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  outline: 0;
+}
+:focus {
+  outline: 0;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+legend {
+  color: #000;
+}
+fieldset,
+img {
+  border: 0;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  resize: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.middle {
+  vertical-align: middle;
+}
+.hidden {
+  display: none;
+}
+img {
+  vertical-align: middle;
+}
+i,
+em {
+  font-style: normal;
+}
+a.select {
+  cursor: text;
+}
+input:focus,
+input:active,
+button:focus,
+button:active {
+  outline: none;
+}
+html {
+  min-height: 100%;
+}
+html {
+  overflow-y: scroll;
+}
+select {
+  height: 25px;
+  line-height: 25px;
+}
+button {
+  border: 0;
+}
+.fl {
+  float: left;
+  display: inline;
+}
+.fr {
+  float: right;
+  display: inline;
+}
+/*超出显示省略号*/
+.cls {
+  zoom: 1;
+}
+.cls:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+/*页面开始*/
+.container .wrapper {
+  width: 210mm;
+  margin: 0 auto;
+}
+.container .item {
+  font-size: 12px;
+  padding-bottom: 30px;
+  position: relative;
+}
+.container .item .tag {
+  font-weight: 700;
+  width: 14px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.container .item .title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.container .item .title h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.container .item .top .tableTop {
+  width: 100%;
+}
+.container .item .top .tableTop thead tr {
+  border-bottom: 3px solid #000;
+}
+.container .item .top .tableTop td,
+.container .item .top .tableTop th {
+  text-align: left;
+  /*height: 24px;line-height: 24px;*/
+  padding: 0 20px;
+}
+.container .item .top .tableTop th:nth-child(1),
+.container .item .top .tableTop td:nth-child(1) {
+  width: 16%;
+}
+.container .item .top .tableTop th:nth-child(2),
+.container .item .top .tableTop td:nth-child(2) {
+  width: 12%;
+}
+.container .item .top .tableTop th:nth-child(3),
+.container .item .top .tableTop td:nth-child(3) {
+  width: 12%;
+}
+.container .item .top .tableTop th:nth-child(4),
+.container .item .top .tableTop td:nth-child(4) {
+  width: 40%;
+}
+.container .item .top .tableTop th:nth-child(5),
+.container .item .top .tableTop td:nth-child(5) {
+  width: 20%;
+}
+.container .item .middle {
+  height: 140px;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+.container .item .middle h4 {
+  font-size: 12px;
+  font-weight: 700;
+}
+.container .item .middle p.detail {
+  zoom: 1;
+  line-height: 1.4;
+}
+.container .item .middle p.detail:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+.container .item .middle p.detail span {
+  float: left;
+  display: inline;
+  min-width: 14%;
+}
+.container .item .down {
+  zoom: 1;
+}
+.container .item .down:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+.container .item .down .left {
+  float: left;
+  display: inline;
+  width: 80%;
+}
+.container .item .down .right {
+  float: left;
+  display: inline;
+  width: 20%;
+  padding: 0 20px;
+}
+.container .item .down .tableDown {
+  height: 70px;
+}
+.container .item .down .tableDown table {
+  width: 100%;
+}
+.container .item .down .tableDown thead tr {
+  border-bottom: 3px solid #000;
+}
+.container .item .down .tableDown td,
+.container .item .down .tableDown th {
+  text-align: left;
+  /*height: 24px;line-height: 24px;*/
+  padding: 0 2%;
+}
+.container .item .down .tableDown th:nth-child(1),
+.container .item .down .tableDown td:nth-child(1) {
+  width: 20%;
+}
+.container .item .down .tableDown th:nth-child(2),
+.container .item .down .tableDown td:nth-child(2) {
+  width: 20%;
+}
+.container .item .down .tableDown th:nth-child(3),
+.container .item .down .tableDown td:nth-child(3) {
+  width: 40%;
+}
+.container .item .down .tableDown th:nth-child(4),
+.container .item .down .tableDown td:nth-child(4) {
+  width: 20%;
+}
+.container .item .down .tableDown_2 table {
+  width: 100%;
+}
+.container .item .down .tableDown_2 thead tr {
+  border-bottom: 3px solid #000;
+}
+.container .item .down .tableDown_2 td,
+.container .item .down .tableDown_2 th {
+  text-align: left;
+  /*height: 24px;line-height: 24px;*/
+  padding: 0 2%;
+  width: 12.5%;
+}
+.container .item .down .tip {
+  text-align: justify;
+  height: 70px;
+  overflow: hidden;
+}
+.container .item .down .signLeft {
+  padding: 0 20px;
+}
+.container .item .down .signLeft p,
+.container .item .down .signRight p {
+  line-height: 2.2;
+}
+.container .item .down .sign {
+  zoom: 1;
+}
+.container .item .down .sign:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+.container .item .down .sign .signLeft {
+  float: left;
+  display: inline;
+  width: 80%;
+}
+.container .item .down .sign .signRight {
+  float: left;
+  display: inline;
+  width: 20%;
+  padding-left: 20px;
+}
+@media print {
+  /*body{padding: 10mm 0;}
+  th,td{height: auto;line-height: 1.2;}*/
+}
