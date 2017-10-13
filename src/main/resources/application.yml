@@ -54,7 +54,7 @@ els:
 
 ###################  服务端配置  ###################
 server:
-  port: 8080
+  port: 9000
   context-path: /manage
 
 ###################  beetl配置  ###################
@@ -142,7 +142,7 @@ logging:
 ##########################################################
 custom:
   #文件上传目录(不配置的话为java.io.tmpdir目录)
-  file-upload-path: /mnt/local/files/portal_manage
+  file-upload-path: /mnt/local/files/jewellery_manage
 
 spring:
   profiles: cs
@@ -161,8 +161,8 @@ account:
 
 logging:
   level.root: info
-  path: /mnt/local/logs/portal_manage/
-  file: portal_manage.log
+  path: /mnt/local/logs/jewellery_manage/
+  file: jewellery_manage.log
 
 ---
 
@@ -191,4 +191,4 @@ account:
 logging:
   level.root: info
   path: /mnt/local/logs/jewellery_manage/
-  file: portal_manage.log
+  file: jewellery_manage.log

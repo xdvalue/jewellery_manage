@@ -180,10 +180,10 @@ public class GemController extends BaseController {
 		gemVo.setGemParamConcent(tempGem.getGemParamConcent() + "%&726.667,287");
 		gemVo.setGemParamFinish(tempGem.getGemParamFinish() + "%&726.667,345");
 		gemVo.setGemParamRemark(tempGem.getGemParamRemark() + "%&713.334,401");
-		gemVo.setGemColourImg(tempGem.getGemParamImg1() + "%&786.334,145");
-		gemVo.setGemHcImg(tempGem.getGemParamImg2() + "%&786.334,64.667");
+		gemVo.setGemColourImg(tempGem.getGemParamImg1() + "%&839.328,152");
+		gemVo.setGemHcImg(tempGem.getGemParamImg2() + "%&841.328,380.656");
 		gemVo.setGemImg(tempGem.getGemImg() + "%&116.667,183.334");
-		gemVo.setGemQRImg(tempGem.getGemQrcode() + "%&156.667,183.334");
+		gemVo.setGemQRImg(tempGem.getGemQrcode() + "%&394.656,226.328");
 		if(StringUtils.isNotBlank(tempGem.getGemLogo())){
 			gemVo.setLogImg(tempGem.getGemLogo() +"%&0,0" );
 		}

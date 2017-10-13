@@ -431,14 +431,14 @@ function loadPrint(data){
 	var gemParamRemarkY = parseFloat(((data.data.gemParamRemark).split("%&")[1]).split(",")[1])-38;
 	var gemColourImg = (data.data.gemColourImg).split("%&")[0];
 	var gemColourImgX = parseFloat(((data.data.gemColourImg).split("%&")[1]).split(",")[0]);
-	var gemColourImgY = parseFloat(((data.data.gemColourImg).split("%&")[1]).split(",")[1])-38;
+	var gemColourImgY = parseFloat(((data.data.gemColourImg).split("%&")[1]).split(",")[1]);
 	
 	var gemHcImg = (data.data.gemHcImg).split("%&")[0];
 	var gemHcImgX = parseFloat(((data.data.gemHcImg).split("%&")[1]).split(",")[0]);
-	var gemHcImgY = parseFloat(((data.data.gemHcImg).split("%&")[1]).split(",")[1])-38;
+	var gemHcImgY = parseFloat(((data.data.gemHcImg).split("%&")[1]).split(",")[1]);
 	var gemQRImg = (data.data.gemQRImg).split("%&")[0];
 	var gemQRImgX = parseFloat(((data.data.gemQRImg).split("%&")[1]).split(",")[0]);
-	var gemQRImgY = parseFloat(((data.data.gemQRImg).split("%&")[1]).split(",")[1])-38;
+	var gemQRImgY = parseFloat(((data.data.gemQRImg).split("%&")[1]).split(",")[1]);
 	
 	var loadData = [{id : "reportCode",text : reportCode,color : "rgb(255, 0, 0)",height : 30,pageX : reportCodeX,pageY : reportCodeY,type:"text"},
 	                {id : "gemNameAndWeight",text : gemNameAndWeight,color : "rgb(255, 0, 0)",height : 30,pageX : gemNameAndWeightX,pageY : gemNameAndWeightY,type:"text"},
