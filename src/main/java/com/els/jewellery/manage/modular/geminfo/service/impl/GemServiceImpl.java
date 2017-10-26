@@ -49,15 +49,6 @@ public class GemServiceImpl extends ServiceImpl<GemMapper, Gem> implements GemSe
 			wrapper.where(String.format("%s = {0}", Constant.COLUMN_LOGIC_DELETE), IsEnable.Yes.getId()); // 软删除字段
 			wrapper.andNew("REPORT_CODE={0}", gem.getReportCode());
 			Reportcode reportcodeEn= reportcodeService.selectOne(wrapper);
-			EntityWrapper<GemHc> wrapper_hc = new EntityWrapper<>();
-			wrapper_hc.where(String.format("%s = {0}", Constant.COLUMN_LOGIC_DELETE), IsEnable.Yes.getId()); // 软删除字段
-			wrapper_hc.andNew("HC_KEY={0}", gem.getGemQuality());
-			List<GemHc> hcList= gemHcService.selectList(wrapper_hc);
-			if(hcList.size() < 1 ){
-				throw new BussinessException(BizExceptionEnum.HC_IS_NOT_NULL);
-			}
-			gem.setGemQuality(hcList.get(0).getHcName());
-			gem.setGemParamImg2(hcList.get(0).getHcImg());
 			QRCodeUtil qrCodeUtil = new QRCodeUtil();
 			String name = null;
 			try {

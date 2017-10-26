@@ -71,7 +71,9 @@ public enum BizExceptionEnum {
 	ID_IS_NOT_NULL(5000,"id不能为空"),
 	RECORD_NOT_EXIST(5001,"记录不存在"),
 	PARAMETER_IS_NOT_NULL(5001,"参数不能为空"),
-	HC_IS_NOT_NULL(5001,"火彩参数不能为空");
+	HC_IS_NOT_NULL(5001,"火彩参数不能为空"),
+	KEY_IS_NOT_NULL(5001,"KEY不能为空"),
+	HC_IS_NOT_FOUNT(5001,"未查询到对应的火彩质量信息");
 	
 	BizExceptionEnum(int code, String message) {
 		this.friendlyCode = code;

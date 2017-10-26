@@ -23,7 +23,7 @@
 				                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
 				                            </div>
 											<div class="col-sm-2">
-												<#button name="查询" icon="fa-search" clickFun="EnterpriseList.search()" />
+												<#button name="查询" icon="fa-search" clickFun="GemList.search()" />
 											</div>
 										</div>
 									</div>
@@ -31,7 +31,7 @@
 										<#button name="添加" icon="fa-add" clickFun="GemList.add(1)" space="true"/>
 										<#button name="编辑" icon="fa-edit" clickFun="GemList.edit()" space="true"/>
 										<#button name="复制" icon="fa-edit" clickFun="GemList.copy()" space="true"/>
-										<#button name="批量打印" icon="fa-edit" clickFun="GemList.batchPrint()" space="true"/>
+										<!-- <#button name="批量打印" icon="fa-edit" clickFun="GemList.batchPrint()" space="true"/> -->
 									</div>
 									<#table id="gemTable"/>
 								</div>

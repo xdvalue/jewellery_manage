@@ -36,6 +36,7 @@ import com.els.jewellery.manage.modular.geminfo.entity.Gem;
 import com.els.jewellery.manage.modular.geminfo.service.GemService;
 import com.els.jewellery.manage.modular.geminfo.vo.GemPrintVo;
 import com.els.jewellery.manage.modular.utils.ImageHandleHelper;
+import com.els.jewellery.manage.modular.utils.SFtpUtil;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -248,21 +249,18 @@ public class GemController extends BaseController {
 		        String path = resource.getPath();  
 		        String imgUrl = "";
 		        if(fileType.equals("0")){
-		        	path += "/static/img/gem/";
-		        	imgUrl = "/static/img/gem/";
+		        	path += "/mnt/local/apps/tomcat/tomcat-img/tomcat-8.0.44/webapps/jeimg/gem/";
+		        	imgUrl = "http://39.108.169.195:10000/jeimg/gem/";
 		        }else if(fileType.equals("1")){
-		        	path += "/static/img/logo/";
-		        	imgUrl = "/static/img/logo/";
+		        	path += "/mnt/local/apps/tomcat/tomcat-img/tomcat-8.0.44/webapps/jeimg/logo/";
+		        	imgUrl = "http://39.108.169.195:10000/jeimg/logo/";
 		        }
 		        // 获取图片的文件名
 		        String fileName = file.getOriginalFilename();
-		        
+		        SFtpUtil sftp = new SFtpUtil();
 		        String newFileName = fileName;
-		        path = path.substring(1);
-		        path = path.replaceAll("/", "//");
-		        File dest = new File(path, newFileName);
-		        file.transferTo(dest);
-		        res.setData(imgUrl + newFileName);
+		        String name = sftp.upload2(path, file.getInputStream(), sftp.connectSFTP(),newFileName) ;
+		        res.setData(imgUrl + name);
 			}
 		}
 		

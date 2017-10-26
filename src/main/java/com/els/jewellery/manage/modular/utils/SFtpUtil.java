@@ -79,6 +79,27 @@ public class SFtpUtil {
 	        disconnect();
 	        return name;
 	    }
+	    /**
+	     * 上传文件
+	     * 
+	     * @param directory
+	     *            上传的目录
+	     * @param uploadFile
+	     *            要上传的文件
+	     * @param sftp
+	     ** @param uploadFile
+	     *            要上传的文件名
+	     */
+	    public String upload2(String directory, InputStream  uploadFile, ChannelSftp sftp,String name) {
+	        try {
+	            sftp.cd(directory);
+	            sftp.put(uploadFile,name);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        disconnect();
+	        return name;
+	    }
 		
 	    public void disconnect()
 	    {

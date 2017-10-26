@@ -70,6 +70,30 @@ function findKey(){
     });
 }
 
+function findByHcKey(){
+	var hcKey = $("#hcKey").val();
+	var keyJson = {"hcKey":hcKey};
+	$.ajax({
+        type: "POST",
+        url: Feng.ctxPath + "/geminfo/gemHc/queryByKey",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(keyJson),
+        dataType: "json",
+        success: function (message) {
+            if (message.code == "0") {
+            	$("#gemQuality").val(message.data.hcName);
+            	$("#gemHcImg").val(message.data.hcImg);
+            }else {
+            	Feng.error("失败，请联系管理员");
+            }
+        },
+        error: function (message) {
+        	Feng.error("失败，请联系管理员");
+        	closeWin();
+        }
+    });
+}
+
 
 //关闭弹出窗口
 function closeWin(){
@@ -155,6 +179,14 @@ function save(){
 	var gemParamRemark = $("#gemParamRemark").val();
 	var gemParamImg1 = $("#gemColourImg").val();
 	var gemParamImg2 = $("#gemHcImg").val();
+	if(gemParamImg1 == "" || gemParamImg1 == null || gemParamImg1 == undefined){
+		Feng.error("宝石参数未设置，请先输入快捷键设置宝石参数！");
+		return;
+	}
+	if(gemParamImg2 == "" || gemParamImg2 == null || gemParamImg2 == undefined){
+		Feng.error("宝石质量信息未设置，请先输入快捷键设置宝石质量信息！");
+		return;
+	}
 	var gemInfo = {"reportCode":reportCode,"gemName":gemName,"batchId":batchId,"batchCode":batchCode,"gemWeight":gemWeight,"gemColour":gemColour,
 			"gemVibrance":gemVibrance,"gemQuality":gemQuality,"gemStamp":gemStamp,"gemAssessmentTime":gemAssessmentTime,
 			"gemAccBody":gemAccBody,"gemAccCode":gemAccCode,"gemRemark":gemRemark,
